@@ -1,7 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 type DropdownProps = {
-  options: { label: string; value: string }[];
+  options: { label: string | React.ReactNode; value: string }[];
   label?: string | React.ReactNode;
   onSelect?: (value: string) => void;
   triggerClassName?: string;

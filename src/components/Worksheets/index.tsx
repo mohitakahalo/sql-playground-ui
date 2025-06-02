@@ -46,7 +46,7 @@ const Worksheets = () => {
   };
 
   return (
-    <div className="p-3 bg-white flex flex-col">
+    <div className="p-3 bg-white flex flex-col w-screen">
       <ul className="flex justify-start items-center">
         <WorksheetTabs
           worksheets={worksheets}
