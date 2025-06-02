@@ -14,64 +14,10 @@ export const GET = async () => {
               {
                 name: "products",
                 id: "products",
-                columns: [
-                  {
-                    name: "Column 1",
-                    type: "string",
-                  },
-                  {
-                    name: "Column 2",
-                    type: "string",
-                  },
-                ],
               },
               {
                 name: "customers",
                 id: "customers",
-                columns: [
-                  {
-                    name: "Column 3",
-                    type: "string",
-                  },
-                  {
-                    name: "Column 4",
-                    type: "string",
-                  },
-                ],
-              },
-              {
-                name: "orders",
-                id: "orders",
-                columns: [
-                  {
-                    name: "Column 3",
-                    type: "string",
-                  },
-                  {
-                    name: "Column 4",
-                    type: "string",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            name: "SCHEMA_2",
-            id: "SCHEMA_2",
-            tables: [
-              {
-                name: "employees",
-                id: "employees",
-                columns: [
-                  {
-                    name: "Column 1",
-                    type: "string",
-                  },
-                  {
-                    name: "Column 2",
-                    type: "string",
-                  },
-                ],
               },
             ],
           },
@@ -88,12 +34,6 @@ export const GET = async () => {
               {
                 name: "suppliers",
                 id: "suppliers",
-                columns: [
-                  {
-                    name: "Column 1",
-                    type: "string",
-                  },
-                ],
               },
             ],
           },

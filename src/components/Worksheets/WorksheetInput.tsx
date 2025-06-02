@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { worksheetStore } from "@/stores/worksheet.store";
 import { useStore } from "@nanostores/react";
 import Dropdown from "../ui/Dropdown";
@@ -11,8 +11,12 @@ type WorksheetInputProps = {
 
 const WorksheetInput = ({ fetchQueryOutput }: WorksheetInputProps) => {
   const { queryInput } = useStore(worksheetStore);
-  const [query, setQuery] = useState<string>(queryInput);
+  const [query, setQuery] = useState<string>("");
   const [runAs, setRunAs] = useState<string>("USER");
+
+  useEffect(() => {
+    setQuery(queryInput);
+  }, [queryInput]);
 
   return (
     <>
@@ -29,7 +33,7 @@ const WorksheetInput = ({ fetchQueryOutput }: WorksheetInputProps) => {
             worksheetStore.setKey("queryInput", query);
             fetchQueryOutput();
           }}
-          className="bg-blue-500 text-white p-2 rounded-md mr-auto cursor-pointer"
+          className="bg-blue-500 text-white p-2 rounded-md mr-auto cursor-pointer uppercase font-[family-name:var(--font-geist-mono)] font-bold"
         >
           Run Query
         </button>
