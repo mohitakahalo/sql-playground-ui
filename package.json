@@ -10,10 +10,13 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@nanostores/react": "^1.0.0",
+    "nanostores": "^1.0.1",
     "next": "15.3.3",
     "prettier": "^3.5.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-resizable-panels": "^3.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

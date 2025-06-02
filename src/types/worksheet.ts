@@ -7,6 +7,6 @@ export type WorksheetConfigType = {
 export type WorksheetType = {
   id: number;
   name: string;
-  description: string;
-  config: WorksheetConfigType;
+  description?: string;
+  config: WorksheetConfigType & { queryInput?: string };
 };
