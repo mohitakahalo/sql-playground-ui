@@ -4,16 +4,16 @@ export const GET = async () => {
   return NextResponse.json({
     databases: [
       {
-        name: "Database 1",
-        id: "db-1",
+        name: "DATABASE_1",
+        id: "DATABASE_1",
         schemas: [
           {
-            name: "Schema 1",
-            id: "schema-1",
+            name: "SCHEMA_1",
+            id: "SCHEMA_1",
             tables: [
               {
-                name: "Table 1",
-                id: "table-1",
+                name: "products",
+                id: "products",
                 columns: [
                   {
                     name: "Column 1",
@@ -26,8 +26,22 @@ export const GET = async () => {
                 ],
               },
               {
-                name: "Table 2",
-                id: "table-2",
+                name: "customers",
+                id: "customers",
+                columns: [
+                  {
+                    name: "Column 3",
+                    type: "string",
+                  },
+                  {
+                    name: "Column 4",
+                    type: "string",
+                  },
+                ],
+              },
+              {
+                name: "orders",
+                id: "orders",
                 columns: [
                   {
                     name: "Column 3",
@@ -42,12 +56,12 @@ export const GET = async () => {
             ],
           },
           {
-            name: "Schema 2",
-            id: "schema-2",
+            name: "SCHEMA_2",
+            id: "SCHEMA_2",
             tables: [
               {
-                name: "Table 3",
-                id: "table-3",
+                name: "employees",
+                id: "employees",
                 columns: [
                   {
                     name: "Column 1",
@@ -55,20 +69,6 @@ export const GET = async () => {
                   },
                   {
                     name: "Column 2",
-                    type: "string",
-                  },
-                ],
-              },
-              {
-                name: "Table 4",
-                id: "table-4",
-                columns: [
-                  {
-                    name: "Column 3",
-                    type: "string",
-                  },
-                  {
-                    name: "Column 4",
                     type: "string",
                   },
                 ],
@@ -78,42 +78,16 @@ export const GET = async () => {
         ],
       },
       {
-        name: "Database 2",
-        id: "db-2",
+        name: "DATABASE_2",
+        id: "DATABASE_2",
         schemas: [
           {
-            name: "Schema 3",
-            id: "schema-3",
+            name: "SCHEMA_3",
+            id: "SCHEMA_3",
             tables: [
               {
-                name: "Table 5",
-                id: "table-5",
-                columns: [
-                  {
-                    name: "Column 1",
-                    type: "string",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            name: "Schema 4",
-            id: "schema-4",
-            tables: [
-              {
-                name: "Table 6",
-                id: "table-6",
-                columns: [
-                  {
-                    name: "Column 1",
-                    type: "string",
-                  },
-                ],
-              },
-              {
-                name: "Table 7",
-                id: "table-7",
+                name: "suppliers",
+                id: "suppliers",
                 columns: [
                   {
                     name: "Column 1",

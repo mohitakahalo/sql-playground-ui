@@ -40,7 +40,7 @@ const WorksheetCard = ({ isLoading }: WorksheetCardProps) => {
         <div className="flex-1 bg-gray-200 text-gray-900 flex flex-col gap-2 h-full">
           <div className="flex-1 flex gap-2">
             <PanelGroup direction="horizontal">
-              <Panel defaultSize={20}>
+              <Panel defaultSize={15}>
                 <DatabaseSidebar
                   selectedConfig={
                     worksheet?.config || {

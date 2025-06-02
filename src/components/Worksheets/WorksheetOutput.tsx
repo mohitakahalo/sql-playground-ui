@@ -8,27 +8,43 @@ const WorksheetOutput = () => {
   const { output } = useStore(worksheetStore);
 
   return (
-    <div className="p-2 text-sm text-gray-500 font-[family-name:var(--font-geist-mono)]">
-      <p className="text-gray-900">Output: </p>
+    <div className="p-4 text-sm text-gray-500 font-[family-name:var(--font-geist-mono)] h-full w-full overflow-hidden">
+      <p className="text-gray-900 pb-2 font-bold">Results: </p>
       {output.length > 0 ? (
-        <table className="w-full">
-          <thead>
-            <tr>
-              {Object.entries(output[0]).map(([key]) => (
-                <th key={key}>{key}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {output.map((rowData: any) => (
-              <tr key={rowData.id}>
-                {Object.values(rowData).map((value: any, index: number) => (
-                  <td key={index}>{value}</td>
+        <div className="border border-gray-300 rounded-md h-[calc(100%-2rem)] overflow-hidden w-full">
+          <div className="h-full w-full overflow-auto">
+            <table className="w-full border-collapse">
+              <thead className="sticky top-0 left-0 bg-gray-100">
+                <tr>
+                  {Object.entries(output[0]).map(([key]) => (
+                    <th
+                      key={key}
+                      className="px-2 py-1 text-left border-b border-gray-300 whitespace-nowrap w-auto"
+                    >
+                      {key}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {output.map((rowData: any, rowIndex: number) => (
+                  <tr key={`row-${rowIndex}`}>
+                    {Object.values(rowData).map(
+                      (value: any, columnIndex: number) => (
+                        <td
+                          key={`cell-${rowIndex}-${columnIndex}`}
+                          className="px-2 py-1 border-b border-gray-200 whitespace-nowrap w-auto"
+                        >
+                          {value}
+                        </td>
+                      ),
+                    )}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          </div>
+        </div>
       ) : (
         <p className="text-gray-900">No rows found</p>
       )}

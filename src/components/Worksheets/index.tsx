@@ -17,7 +17,6 @@ const Worksheets = () => {
       const { worksheets } = (await response.json()) as {
         worksheets: WorksheetType[];
       };
-      console.log("worksheets", worksheets);
       worksheetStore.setKey("worksheets", worksheets);
       worksheetStore.setKey("selectedWorksheetId", worksheets[0].id);
       worksheetStore.setKey(

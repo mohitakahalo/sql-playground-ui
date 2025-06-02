@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { worksheetStore } from "@/stores/worksheet.store";
 import { useCallback } from "react";
 import { useStore } from "@nanostores/react";
@@ -15,8 +16,8 @@ export const useWorksheetCard = () => {
       method: "POST",
       body: JSON.stringify({ query: queryInput }),
     });
-    const { output } = (await response.json()) as { output: string };
-    worksheetStore.setKey("output", output);
+    const queryOutput = (await response.json()) as any[];
+    worksheetStore.setKey("output", queryOutput);
   }, [queryInput]);
 
   const setSelectedConfig = useCallback(
