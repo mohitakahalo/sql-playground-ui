@@ -7,6 +7,10 @@ export const useWorksheetCard = () => {
   const { queryInput } = useStore(worksheetStore);
 
   const fetchQueryOutput = useCallback(async () => {
+    if (!queryInput) {
+      return;
+    }
+
     const response = await fetch("/api/query", {
       method: "POST",
       body: JSON.stringify({ query: queryInput }),

@@ -48,14 +48,14 @@ const Worksheets = () => {
 
   return (
     <div className="p-3 bg-white flex flex-col">
-      <ul className="flex justify-start items-center gap-2">
+      <ul className="flex justify-start items-center">
         <WorksheetTabs
           worksheets={worksheets}
           selectedWorksheetId={selectedWorksheetId}
         />
         <button
           onClick={handleAddNewWorksheet}
-          className="bg-blue-500 text-white p-2 rounded-md cursor-pointer"
+          className="bg-blue-500 text-white p-2 px-4 rounded-md cursor-pointer"
         >
           +
         </button>

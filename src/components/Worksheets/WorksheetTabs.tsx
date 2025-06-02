@@ -16,10 +16,10 @@ const WorksheetTabs = ({
         return (
           <li
             key={worksheet.id}
-            className={`cursor-pointer p-2 rounded-md text-black  ${
+            className={`px-4 cursor-pointer rounded-md rounded-b-none p-2 text-black border border-b-0 border-r-0 border-gray-300 font-[family-name:var(--font-geist-mono)] ${
               selectedWorksheetId === worksheet.id
-                ? "bg-blue-500 font-bold"
-                : "bg-gray-200"
+                ? "font-semibold bg-gray-200"
+                : ""
             }`}
             onClick={() => {
               worksheetStore.setKey("selectedWorksheetId", worksheet?.id);

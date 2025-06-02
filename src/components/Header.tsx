@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Dropdown from "./ui/Dropdown";
 
 const Header = () => {
   const pathname = usePathname();
@@ -40,14 +41,20 @@ const Header = () => {
           <li className="text-sm cursor-pointer">History</li>
         </Link>
       </ul>
-      <nav>
-        <div className="flex flex-col gap-4 justify-between items-center">
-          <span className="text-sm text-gray-500">User123</span>
-          <span className="text-sm text-gray-500">user123@gmail.com</span>
-        </div>
-        <ul className="hidden flex-col gap-4 justify-between items-center">
-          <li className="text-sm">Logout</li>
-        </ul>
+      <nav className="my-2">
+        <Dropdown
+          label={
+            <div className="flex flex-col gap-1 justify-between items-start">
+              <span className="text-sm text-gray-500">User123</span>
+              <span className="text-xs text-gray-500">user123@gmail.com</span>
+            </div>
+          }
+          options={[
+            { label: "Settings", value: "settings" },
+            { label: "Logout", value: "logout" },
+          ]}
+          contentClassName="w-10"
+        />
       </nav>
     </header>
   );
