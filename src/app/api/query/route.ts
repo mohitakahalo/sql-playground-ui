@@ -17,22 +17,27 @@ function parseCSVFile(filename: string) {
 }
 
 export const POST = async (request: Request) => {
-  const { query } = await request.json();
+  const {
+    query,
+    page = 1,
+    pageSize = 10,
+    searchTerm = "",
+  } = await request.json();
 
   if (!query) {
     return NextResponse.json({ error: "Query is required" }, { status: 400 });
   }
 
-  let response = [] as any[];
-
-  // MOCK API query to database
   try {
+    let data = [] as any[];
+
+    // Get mock data from CSV files based on query
     if (query.toLowerCase().includes("from products")) {
-      response = parseCSVFile("products.csv");
+      data = parseCSVFile("products.csv");
     } else if (query.toLowerCase().includes("from suppliers")) {
-      response = parseCSVFile("suppliers.csv");
+      data = parseCSVFile("suppliers.csv");
     } else if (query.toLowerCase().includes("from customers")) {
-      response = parseCSVFile("customers.csv");
+      data = parseCSVFile("customers.csv");
     } else {
       return NextResponse.json(
         { error: "Unsupported query or table" },
@@ -40,7 +45,33 @@ export const POST = async (request: Request) => {
       );
     }
 
-    return NextResponse.json(response);
+    // Apply search filter if searchTerm is provided
+    if (searchTerm) {
+      data = data.filter((row) =>
+        Object.values(row).some((value) =>
+          String(value).toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      );
+    }
+
+    // Calculate pagination
+    const totalItems = data.length;
+    const totalPages = Math.ceil(totalItems / pageSize);
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedData = data.slice(startIndex, endIndex);
+
+    return NextResponse.json({
+      data: paginatedData,
+      pagination: {
+        totalItems,
+        totalPages,
+        currentPage: page,
+        pageSize,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    });
   } catch (error) {
     console.error("Error processing query:", error);
     return NextResponse.json(

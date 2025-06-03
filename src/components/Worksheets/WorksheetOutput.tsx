@@ -4,16 +4,62 @@
 import { useStore } from "@nanostores/react";
 import { worksheetStore } from "@/stores/worksheet.store";
 import Dropdown from "../ui/Dropdown";
+import { useState, useEffect, useCallback } from "react";
+import Pagination from "../Pagination";
+import { usePagination } from "@/hooks/usePagination";
 
 const WorksheetOutput = () => {
-  const { output } = useStore(worksheetStore);
+  const store = useStore(worksheetStore);
+  const { output, queryInput } = store;
   const columns = output && output.length > 0 ? Object.keys(output[0]) : [];
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const {
+    currentPage,
+    pageSize,
+    pagination,
+    setCurrentPage,
+    setPagination,
+    handlePageChange,
+    handlePageSizeChange,
+  } = usePagination();
+
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await fetch("/api/query", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: queryInput,
+          page: currentPage,
+          pageSize,
+          searchTerm,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const result = await response.json();
+      worksheetStore.setKey("output", result.data);
+      setPagination(result.pagination);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }, [currentPage, pageSize, searchTerm, queryInput, setPagination]);
+
+  useEffect(() => {
+    fetchData();
+  }, [currentPage, pageSize, searchTerm, queryInput, fetchData]);
+
   return (
-    <div className="p-4 text-sm text-gray-500 font-[family-name:var(--font-geist-mono)] h-full w-full overflow-hidden">
-      <p className="text-gray-900 pb-2 font-bold flex justify-between items-center">
+    <div className="flex flex-col gap-2 p-4 text-sm text-gray-500 font-[family-name:var(--font-geist-mono)] h-full w-full overflow-hidden">
+      <p className="text-gray-900 font-bold flex justify-between items-center">
         <span className="text-gray-500">
-          Results: {output.length} rows found
+          Results: {pagination.totalItems} rows found
         </span>
         <span className="text-gray-500 flex gap-2">
           <button className="bg-blue-500 text-white px-2 rounded-md cursor-pointer">
@@ -43,8 +89,18 @@ const WorksheetOutput = () => {
           />
         </span>
       </p>
+      <input
+        type="text"
+        className="w-1/4 bg-white p-2 rounded-md outline-none border border-gray-300"
+        placeholder="Search Results"
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          setCurrentPage(1); // Reset to first page on search
+        }}
+      />
       {output.length > 0 ? (
-        <div className="border border-gray-300 rounded-md h-[calc(100%-2rem)] overflow-hidden w-full">
+        <div className="border border-gray-300 rounded-md flex-1 overflow-hidden w-full">
           <div className="h-full w-full overflow-auto">
             <table className="w-full border-collapse">
               <thead className="sticky top-0 left-0 bg-gray-100">
@@ -80,6 +136,17 @@ const WorksheetOutput = () => {
         </div>
       ) : (
         <p className="text-gray-900">No rows found</p>
+      )}
+
+      {/* Pagination Controls */}
+      {pagination.totalItems > 0 && (
+        <Pagination
+          pagination={pagination}
+          handlePageChange={handlePageChange}
+          handlePageSizeChange={handlePageSizeChange}
+          pageSize={pageSize}
+          currentPage={currentPage}
+        />
       )}
     </div>
   );

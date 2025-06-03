@@ -26,10 +26,6 @@ const WorksheetCard = ({ isLoading }: WorksheetCardProps) => {
     setWorksheet(currentWorksheet || null);
   }, [worksheets, selectedWorksheetId]);
 
-  useEffect(() => {
-    fetchQueryOutput();
-  }, [fetchQueryOutput]);
-
   return (
     <>
       {isLoading ? (
