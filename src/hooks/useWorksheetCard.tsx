@@ -40,5 +40,22 @@ export const useWorksheetCard = () => {
     [],
   );
 
-  return { fetchQueryOutput, setSelectedConfig };
+  const handlePreviewData = useCallback(() => {
+    const currentWorksheet = worksheetStore
+      .get()
+      .worksheets.find(
+        (worksheet) =>
+          worksheet.id === worksheetStore.get().selectedWorksheetId,
+      );
+    if (!currentWorksheet) {
+      return;
+    }
+    worksheetStore.setKey(
+      "queryInput",
+      `SELECT * FROM ${currentWorksheet.config.table}`,
+    );
+    fetchQueryOutput();
+  }, [fetchQueryOutput]);
+
+  return { fetchQueryOutput, setSelectedConfig, handlePreviewData };
 };

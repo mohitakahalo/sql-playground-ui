@@ -9,6 +9,7 @@ import { useWorksheetCard } from "@/hooks/useWorksheetCard";
 import { useStore } from "@nanostores/react";
 import { worksheetStore } from "@/stores/worksheet.store";
 import { WorksheetType } from "@/types/worksheet";
+import TableDetails from "../TableDetails";
 
 type WorksheetCardProps = {
   isLoading: boolean;
@@ -17,7 +18,8 @@ type WorksheetCardProps = {
 const WorksheetCard = ({ isLoading }: WorksheetCardProps) => {
   const [worksheet, setWorksheet] = useState<WorksheetType | null>(null);
   const { worksheets, selectedWorksheetId } = useStore(worksheetStore);
-  const { fetchQueryOutput, setSelectedConfig } = useWorksheetCard();
+  const { fetchQueryOutput, setSelectedConfig, handlePreviewData } =
+    useWorksheetCard();
 
   useEffect(() => {
     const currentWorksheet = worksheets.find(
@@ -37,17 +39,35 @@ const WorksheetCard = ({ isLoading }: WorksheetCardProps) => {
           <div className="flex-1 flex gap-2">
             <PanelGroup direction="horizontal" className="w-full">
               <Panel defaultSize={15}>
-                <DatabaseSidebar
-                  selectedConfig={
-                    worksheet?.config || {
-                      database: "",
-                      schema: "",
-                      table: "",
-                      queryInput: "",
-                    }
-                  }
-                  setSelectedConfig={setSelectedConfig(worksheet?.id ?? 0)}
-                />
+                <PanelGroup direction="vertical">
+                  <Panel defaultSize={80}>
+                    <DatabaseSidebar
+                      selectedConfig={
+                        worksheet?.config || {
+                          database: "",
+                          schema: "",
+                          table: "",
+                          queryInput: "",
+                        }
+                      }
+                      setSelectedConfig={setSelectedConfig(worksheet?.id ?? 0)}
+                    />
+                  </Panel>
+                  <PanelResizeHandle className="bg-gray-300 w-full h-[2px]" />
+                  <Panel defaultSize={20}>
+                    <TableDetails
+                      worksheetConfig={
+                        worksheet?.config || {
+                          database: "",
+                          schema: "",
+                          table: "",
+                          queryInput: "",
+                        }
+                      }
+                      handlePreviewData={handlePreviewData}
+                    />
+                  </Panel>
+                </PanelGroup>
               </Panel>
               <PanelResizeHandle className="bg-gray-300 w-[2px] h-full" />
               <Panel>
