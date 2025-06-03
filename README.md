@@ -1,4 +1,4 @@
-#### Project details: 
+## Project details: 
 This project contains a dummy UI for running SQL queries. This is built using Next.js framework and hosted on Vercel.
 The hosted app can be found at : https://sql-playground-ui.vercel.app/
 
